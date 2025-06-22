@@ -9,7 +9,30 @@
 
 In a typical hands-free communication setup (like a video call), the sound from the far-end user (played through your speakers) can be picked up by your microphone. This causes the far-end user to hear an echo of their own voice, which is disruptive. An AEC is a signal processing component that identifies and removes this unwanted echo from the microphone signal, resulting in a clean audio stream.
 
-![AEC Diagram](https://i.imgur.com/GCRs5pE.png)
+```mermaid
+graph TD;
+    subgraph "Far-End User"
+        A["Voice from Call"];
+    end
+
+    subgraph "Your Room"
+        B["Loudspeaker"];
+        C["Your Voice"];
+        D["Microphone"];
+        E["Acoustic Echo Canceller (AEC)"];
+    end
+
+    subgraph "To Far-End User"
+        F["Cleaned Voice"];
+    end
+
+    A -- "Reference Signal" --> E;
+    A -- "Played out loud" --> B;
+    B -- "Acoustic Echo" --> D;
+    C -- " " --> D;
+    D -- "Mic Signal<br>(Your Voice + Echo)" --> E;
+    E -- "Removes Echo" --> F;
+```
 
 ## How It Works
 
